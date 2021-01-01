@@ -32,8 +32,52 @@ char k2[9];                                  //second 8 bit key
 
 
 //get the input key from user
+void getInput();
+
+//function for applying P1
+void appllyP1();
+
+//function for shifting the bits LS-1
+void LS1();
+
+//function for applying P8
+void P8K1();
+
+//function for shifting 2 bits to left LS-2
+void LS2();
+
+//get the plain text from user 
+
+//-----------------main-----------------
+int main(){
+
+    //get the inputKey from user
+    getInput();
+    
+    //starting to build k1
+    //applying p1
+    appllyP1();
+
+    //LS-1
+    LS1();
+
+    //applying P8
+    P8K1();
+
+    //starting to build k2
+    //Performing LS2
+    LS2();
+    
+    //applying P8 on K2
+    P8K1();
+    
+};
+//---------------end-of-main--------------
+
 void getInput () {
 
+    printf("Please enter 10 bits as key: ");
+    /*
     printf("Please enter 10 bits as input it will ask you a bit eachtime(10 times): ");
     for(i = 0; i < 10; ++i){      
         
@@ -41,7 +85,7 @@ void getInput () {
         scanf("%i", &n);
         if(n == 1 || n == 0) { 
             inputKey[i] = n + '0';
-            /*
+            
             printf("Please enter the next bit(it will be ");
             if(i==0){
                 printf("second bit): ");
@@ -50,39 +94,36 @@ void getInput () {
             }else{ 
                 printf("%ith bit): ", i);
             };
-            */
+            
         }else{
             printf("Please choose between 0 and 1!!!");
             i--;
         };
 
     };
-
+    */
+    scanf("%s", &inputKey);
     inputKey[10] = '\0';
     printf("input: ");
     puts(inputKey);
     
 };
 
-//get the plain text from user 
+void appllyP1 (){
 
-int main(){
-
-    //get the inputKey from user
-    getInput();
-    
-
-    //starting to build k1
-    //applying p1
     for(i=0 ; i<=9; ++i){
         temp[i] = inputKey[p1[i] - 1];
     };
+    //add a null bit at the end of temp
     temp[10] = '\0';
    
     printf("P1: ");
     puts(temp);
     printf("len: %i\n",  strlen(temp));
-    //LS-1
+};
+
+void LS1(){
+
     //first half
     for(i=0; i<5; ++i){
 
@@ -96,6 +137,7 @@ int main(){
         }
         
     };
+
     //second half
     for(i=5; i<10; ++i){
 
@@ -113,6 +155,10 @@ int main(){
     printf("LS-1: ");
     puts(temp);
 
+};
+
+void P8K1(){
+    
     printf("P8: ");
     for (i = 0; i<8;++i) {
         if(i==7)
@@ -121,22 +167,20 @@ int main(){
             printf("%d", p8[i]);
     };
 
-
     for (i=0; i<8; i++) {
         n = p8[i];
         k1[i] = temp[n-1];
     };
+
     k1[8] = '\0';
     printf("k1: ");
     puts(k1);
 
-    //for (i = 0; i<8; ++i) {
-    //    n = p8[0];
-    //    k1[i] = temp[n - 1];
-    //};
-    //printf("The k1 result: ");
+};
 
-    //Performing LS2
+void LS2(){
+
+    //first half
     for(i=0; i<5; ++i){
 
         if( i == 0 ){
@@ -154,6 +198,7 @@ int main(){
         }
         
     };
+
     //second half
     for(i=5; i<10; ++i){
 
@@ -173,12 +218,14 @@ int main(){
         }  
 
     };
-    
-   
 
     printf("LS-2: %s\n", temp);
     printf("len: %i\n",  strlen(temp));
-    
+
+};
+
+void P8K2(){
+
     for (i=0; i<8; ++i) {
         n = p8[i];
         k2[i] = temp[n-1];  
@@ -186,6 +233,5 @@ int main(){
     k2[8] = '\0';
     printf("k2: ");
     puts(k2);
-    
-};
 
+};
