@@ -27,6 +27,7 @@ char temp[11];                               //is a temporary var for all of our
 char ext[2];                                 //extra variable for permutation
 char k1[9];                                  //first 8 bit key - I added a null at the end of the key
 char k2[9];                                  //second 8 bit key
+char plainText[9];                           //the plaintext      
 
 //............................
 
@@ -46,8 +47,14 @@ void P8K1();
 //function for shifting 2 bits to left LS-2
 void LS2();
 
-//get the plain text from user 
+//function for applying P8 on k2
+void P8K2();
 
+//just for testing k2
+void printK2();
+
+//get the plain text from user 
+void plaintextInput();
 //-----------------main-----------------
 int main(){
 
@@ -69,7 +76,14 @@ int main(){
     LS2();
     
     //applying P8 on K2
-    P8K1();
+    P8K2();
+    
+    //start to encript
+    plaintextInput();
+    printf("Your input was: ");
+    puts(plainText);
+
+    return 0;
     
 };
 //---------------end-of-main--------------
@@ -233,5 +247,19 @@ void P8K2(){
     k2[8] = '\0';
     printf("k2: ");
     puts(k2);
+};
+
+void printK2(){
+    printf("k2 just for test: ");
+    puts(k2);
+    printf("test 2: %s", k2);
+};
+
+void plaintextInput(){
+
+    printf("Please enter the 8 bit plain text: ");
+    scanf("%s", &plainText);
+    plainText[8] = '\0';
+
 
 };
