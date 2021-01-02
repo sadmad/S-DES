@@ -55,7 +55,7 @@ void printK2();
 
 //get the plain text from user 
 void plaintextInput();
-//-----------------main-----------------
+//-----------------main------------------
 int main(){
 
     //get the inputKey from user
