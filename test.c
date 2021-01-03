@@ -16,18 +16,22 @@
 //initializing the variables
 //--------------------------
 
-int p8[] = {6, 3, 7, 4, 8, 5, 10, 9};        //8 bits of permuted input
-int p1[] = {3, 5, 2, 7, 4, 10, 1, 9, 8, 6};  //10 bit of permuted input
-int ip[] = {2, 6, 3, 1, 4, 8, 5, 7};         //inverse permutation
-int ipRev[] = {4, 1, 3 , 5, 7, 2, 8, 6};     //reverse of inverse permutation
-int n = 0;                                   //used as a permanent holder for LS-2
-int i;                                       //use for for loops
-char inputKey[11];                           //The variable for storing the 10 bit input key from the user
-char temp[11];                               //is a temporary var for all of our calculation 
-char ext[2];                                 //extra variable for permutation
-char k1[9];                                  //first 8 bit key - I added a null at the end of the key
-char k2[9];                                  //second 8 bit key
-char plainText[9];                           //the plaintext      
+const int p8[] = {6, 3, 7, 4, 8, 5, 10, 9};        //8 bits of permuted input
+const int p1[] = {3, 5, 2, 7, 4, 10, 1, 9, 8, 6};  //10 bit of permuted input
+const int ip[] = {2, 6, 3, 1, 4, 8, 5, 7};         //inverse permutation
+const int ipRev[] = {4, 1, 3 , 5, 7, 2, 8, 6};     //reverse of inverse permutation
+const int sw[] = {4, 5, 6, 7, 0, 1, 2, 3};         //sw used in the fk function2
+const int EP[8] = {4, 1, 2, 3, 2, 3, 4, 1};
+const int P4[4] ={2, 4, 3, 1};
+int n = 0;                                         //used as a permanent holder for LS-2
+int i;                                             //use for for loops
+char inputKey[11];                                 //The variable for storing the 10 bit input key from the user
+char temp[11];                                     //is a temporary var for all of our calculation 
+char temp8[8];                                     //8bits temo var 
+char ext[2];                                       //extra variable for permutation
+char k1[9];                                        //first 8 bit key - I added a null at the end of the key
+char k2[9];                                        //second 8 bit key
+char plainText[9];                                 //the plaintext      
 
 //............................
 
@@ -56,6 +60,9 @@ void printK2();
 //get the plain text from user 
 void plaintextInput();
 
+void initialPermutation();
+
+
 //-----------------main------------------
 int main(){
 
@@ -83,6 +90,9 @@ int main(){
     plaintextInput();
     printf("Your input was: ");
     puts(plainText);
+
+    //initial Permutation
+    initialPermutation();
 
     return 0;
     
@@ -264,3 +274,12 @@ void plaintextInput(){
 
 
 };
+
+void initialPermutation(){
+
+    for(i=0;i<8;++i){
+        temp8[i] = plainText[ip[i]-1];
+    };
+    temp8[8] = '\0';
+};
+
