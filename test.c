@@ -309,13 +309,14 @@ void devideLeftRight(){
     for(i=0;i<8;++i){
         if(i<4){
             l[i] = temp8[i];
-        }else{
-            r[i] = i;
+        }else if(i>3){
+            r[i] = temp8[i];
+            printf("i: %i", i);
         };
     };
     l[4] = '\0';
     r[4] = '\0';
-
+    
     printf("Left: ");
     puts(l);
     printf("Right: ");
