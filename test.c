@@ -31,7 +31,9 @@ char temp8[8];                                     //8bits temo var
 char ext[2];                                       //extra variable for permutation
 char k1[9];                                        //first 8 bit key - I added a null at the end of the key
 char k2[9];                                        //second 8 bit key
-char plainText[9];                                 //the plaintext      
+char plainText[9];                                 //the plaintext
+char l[5];		
+char r[5];                                      
 
 //............................
 
@@ -62,6 +64,11 @@ void plaintextInput();
 
 void initialPermutation();
 
+void devideToLeftRight();
+
+void expandpermutateR();
+
+void XOR();
 
 //-----------------main------------------
 int main(){
@@ -93,6 +100,16 @@ int main(){
 
     //initial Permutation
     initialPermutation();
+
+    //leftnright
+    devideLeftRight();
+
+    printf("Right: ");
+    puts(r);
+    //Expand and permutate R using E/P
+    //expandpermutateR();
+
+    //XOR();
 
     return 0;
     
@@ -258,6 +275,7 @@ void P8K2(){
     k2[8] = '\0';
     printf("k2: ");
     puts(k2);
+
 };
 
 void printK2(){
@@ -281,5 +299,48 @@ void initialPermutation(){
         temp8[i] = plainText[ip[i]-1];
     };
     temp8[8] = '\0';
+    printf("Plain text after initial Permutation: ");
+    puts(temp8);
+
 };
 
+void devideLeftRight(){
+
+    for(i=0;i<8;++i){
+        if(i<4){
+            l[i] = temp8[i];
+        }else{
+            r[i] = i;
+        };
+    };
+    l[4] = '\0';
+    r[4] = '\0';
+
+    printf("Left: ");
+    puts(l);
+    printf("Right: ");
+    puts(r);
+    
+};
+
+void expandpermutateR(){
+    for(i=0;i<8;++i)
+        temp8[i] = r[EP[i-1]];
+    
+    temp8[8] = '\0';
+    printf("EP-R: ");
+    puts(temp8);
+};
+
+void XOR(){
+    for(i=0;i<8;++i){
+        if(k2[i] == temp8[i])
+            temp8[i] = 0;
+        else
+            temp8[i] = 1;
+        
+    }
+
+    printf("XOR: ");
+    puts(temp8);
+};
