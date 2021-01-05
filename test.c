@@ -33,8 +33,11 @@ char k1[9];                                        //first 8 bit key - I added a
 char k2[9];                                        //second 8 bit key
 char plainText[9] = {'0','1','1','1','0','0','1','0', '\0'};                                 //the plaintext
 char l[5];		
-char r[5];                                      
-
+char r[5];
+char lXor[5];
+char rXor[5];
+int s0[][] = {{1, 0, 3, 2}, {3, 2, 1, 0}, {0, 2, 1, 3}, {3, 1, 3, 2}};                                   
+int s1[][] = {{0, 1, 2, 3}, {2, 0, 1, 3}, {3, 0, 1, 0}, {2, 1, 0, 3}};
 //............................
 
 
@@ -69,6 +72,12 @@ void devideLeftRight();
 void expandpermutateR();
 
 void XOR();
+
+void devideLeftRightXor();
+
+int binaryToDecimal();
+
+
 
 //-----------------main------------------
 int main(){
@@ -110,6 +119,8 @@ int main(){
     expandpermutateR();
 
     XOR();
+
+    
 
     return 0;
     
@@ -354,4 +365,47 @@ void XOR(){
     temp8[8] = '\0';
     printf("XOR: ");
     puts(temp8);
+};
+
+void devideLeftRightXor(){
+    int j=4;
+    for(i=0;i<8;++i){
+        if(i<4){
+            lXor[i] = temp8[i];
+        }else{
+            n = i - j;
+            rXor[n] = temp8[i];
+        };
+    };
+
+    lXor[4] = '\0';
+    rXor[4] = '\0';
+
+    printf("Left of XOR: ");
+    puts(lXor);
+
+    printf("Right of XOR: ");
+    puts(rXor);
+    
+};
+
+int binaryToDecimal(char arr)
+{
+    int num = atoi(arr);
+    int dec_value = 0;
+ 
+    // Initializing base value to 1, i.e 2^0
+    int base = 1;
+ 
+    int temp = num;
+    while (temp) {
+        int last_digit = temp % 10;
+        temp = temp / 10;
+ 
+        dec_value += last_digit * base;
+ 
+        base = base * 2;
+    }
+ 
+    return dec_value;
 };
