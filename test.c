@@ -36,8 +36,8 @@ char l[5];
 char r[5];
 char lXor[5];
 char rXor[5];
-int s0[][] = {{1, 0, 3, 2}, {3, 2, 1, 0}, {0, 2, 1, 3}, {3, 1, 3, 2}};                                   
-int s1[][] = {{0, 1, 2, 3}, {2, 0, 1, 3}, {3, 0, 1, 0}, {2, 1, 0, 3}};
+int S0[4][4] = {{1, 0, 3, 2}, {3, 2, 1, 0}, {0, 2, 1, 3}, {3, 1, 3, 2}};                                   
+int S1[4][4] = {{0, 1, 2, 3}, {2, 0, 1, 3}, {3, 0, 1, 0}, {2, 1, 0, 3}};
 //............................
 
 
@@ -120,7 +120,7 @@ int main(){
 
     XOR();
 
-    
+    devideLeftRightXor();
 
     return 0;
     
@@ -389,9 +389,9 @@ void devideLeftRightXor(){
     
 };
 
-int binaryToDecimal(char arr)
-{
-    int num = atoi(arr);
+int binaryToDecimal(int num){
+    //next line must be moved to new function wich call this finction
+    //int num = atoi(a);
     int dec_value = 0;
  
     // Initializing base value to 1, i.e 2^0
