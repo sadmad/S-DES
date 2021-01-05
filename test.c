@@ -25,13 +25,13 @@ const int EP[8] = {4, 1, 2, 3, 2, 3, 4, 1};
 const int P4[4] ={2, 4, 3, 1};
 int n = 0;                                         //used as a permanent holder for LS-2
 int i;                                             //use for for loops
-char inputKey[11];                                 //The variable for storing the 10 bit input key from the user
+char inputKey[11] = {'1','0','1','0','0','0','0','0','1','0','\0'};                                 //The variable for storing the 10 bit input key from the user
 char temp[11];                                     //is a temporary var for all of our calculation 
 char temp8[8];                                     //8bits temo var 
 char ext[2];                                       //extra variable for permutation
 char k1[9];                                        //first 8 bit key - I added a null at the end of the key
 char k2[9];                                        //second 8 bit key
-char plainText[9];                                 //the plaintext
+char plainText[9] = {'0','1','1','1','0','0','1','0', '\0'};                                 //the plaintext
 char l[5];		
 char r[5];                                      
 
@@ -64,7 +64,7 @@ void plaintextInput();
 
 void initialPermutation();
 
-void devideToLeftRight();
+void devideLeftRight();
 
 void expandpermutateR();
 
@@ -74,7 +74,8 @@ void XOR();
 int main(){
 
     //get the inputKey from user
-    getInput();
+    //getInput();
+
     
     //starting to build k1
     //applying p1
@@ -94,7 +95,8 @@ int main(){
     P8K2();
     
     //start to encript
-    plaintextInput();
+    //plaintextInput();
+    
     printf("Your input was: ");
     puts(plainText);
 
@@ -104,12 +106,10 @@ int main(){
     //leftnright
     devideLeftRight();
 
-    printf("Right: ");
-    puts(r);
     //Expand and permutate R using E/P
-    //expandpermutateR();
+    expandpermutateR();
 
-    //XOR();
+    XOR();
 
     return 0;
     
@@ -301,47 +301,57 @@ void initialPermutation(){
     temp8[8] = '\0';
     printf("Plain text after initial Permutation: ");
     puts(temp8);
+    for(i=0;i<8;++i){
+        
+    };
 
 };
 
 void devideLeftRight(){
-
+    int j=4;
     for(i=0;i<8;++i){
         if(i<4){
             l[i] = temp8[i];
-        }else if(i>3){
-            r[i] = temp8[i];
-            printf("i: %i", i);
+        }else{
+            n = i - j;
+            r[n] = temp8[i];
         };
     };
+
     l[4] = '\0';
     r[4] = '\0';
-    
+
     printf("Left: ");
     puts(l);
+
     printf("Right: ");
     puts(r);
     
 };
 
 void expandpermutateR(){
-    for(i=0;i<8;++i)
-        temp8[i] = r[EP[i-1]];
-    
+
+    for(i=0;i<8;++i){
+        temp8[i] = r[EP[i] - 1];
+    };
     temp8[8] = '\0';
     printf("EP-R: ");
     puts(temp8);
+
 };
 
 void XOR(){
+    printf("k1: ");
+    puts(k1);
     for(i=0;i<8;++i){
-        if(k2[i] == temp8[i])
-            temp8[i] = 0;
+        if(k1[i] == temp8[i])
+            temp8[i] = '0';
         else
-            temp8[i] = 1;
+            temp8[i] = '1';
+        
         
     }
-
+    temp8[8] = '\0';
     printf("XOR: ");
     puts(temp8);
 };
