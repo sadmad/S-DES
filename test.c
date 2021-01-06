@@ -77,7 +77,7 @@ void devideLeftRightXor();
 
 int binaryToDecimal();
 
-
+void fk();
 
 //-----------------main------------------
 int main(){
@@ -112,15 +112,7 @@ int main(){
     //initial Permutation
     initialPermutation();
 
-    //leftnright
-    devideLeftRight();
-
-    //Expand and permutate R using E/P
-    expandpermutateR();
-
-    XOR();
-
-    devideLeftRightXor();
+    fk();
 
     return 0;
     
@@ -405,7 +397,23 @@ int binaryToDecimal(int num){
         dec_value += last_digit * base;
  
         base = base * 2;
-    }
+    };
  
     return dec_value;
+};
+
+void fk(){
+
+    //mapping---
+    //leftnright
+    devideLeftRight();
+
+    //Expand and permutate R using E/P
+    expandpermutateR();
+
+    //Xor ----
+    XOR();
+
+    devideLeftRightXor();
+
 };
