@@ -29,7 +29,7 @@ char inputKey[11] = {'1','0','1','0','0','0','0','0','1','0','\0'};             
 char temp[11];                                     //is a temporary var for all of our calculation 
 char temp8[8];
 char temp4[5];                                     //8bits temo var 
-char ext[42];                                       //extra variable for permutation
+char ext[4];                                       //extra variable for permutation
 char k1[9];                                        //first 8 bit key - I added a null at the end of the key
 char k2[9];                                        //second 8 bit key
 char plainText[9] = {'0','1','1','1','0','0','1','0', '\0'};                                 //the plaintext
