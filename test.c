@@ -27,8 +27,9 @@ int n = 0;                                         //used as a permanent holder 
 int i;                                             //use for for loops
 char inputKey[11] = {'1','0','1','0','0','0','0','0','1','0','\0'};                                 //The variable for storing the 10 bit input key from the user
 char temp[11];                                     //is a temporary var for all of our calculation 
-char temp8[8];                                     //8bits temo var 
-char ext[2];                                       //extra variable for permutation
+char temp8[8];
+char temp4[5];                                     //8bits temo var 
+char ext[42];                                       //extra variable for permutation
 char k1[9];                                        //first 8 bit key - I added a null at the end of the key
 char k2[9];                                        //second 8 bit key
 char plainText[9] = {'0','1','1','1','0','0','1','0', '\0'};                                 //the plaintext
@@ -79,6 +80,7 @@ int binaryToDecimal();
 
 void fk();
 
+void decToBi();
 //-----------------main------------------
 int main(){
 
@@ -381,9 +383,9 @@ void devideLeftRightXor(){
     
 };
 
+/*
 int binaryToDecimal(int num){
-    //next line must be moved to new function wich call this finction
-    //int num = atoi(a);
+    
     int dec_value = 0;
  
     // Initializing base value to 1, i.e 2^0
@@ -401,9 +403,140 @@ int binaryToDecimal(int num){
  
     return dec_value;
 };
+*/
+int biToStr(char *n){
+
+    if( strcmp(n, "00") == 0) return 0;
+    else if( strcmp(n, "01") == 0) return 1;
+    else if( strcmp(n, "10") == 0) return 2;
+    else  return 3;
+
+    return -1;
+};
+
+
+void s0Box(){
+
+    char num[3];
+    int pos[2]; //pos[o is the row and pos[1] is the col of S0_box
+
+    //1-4
+    num[0] = lXor[0];
+    num[1] = lXor[3];
+    num[2] = '\0';
+
+    printf("lxor 1-4: ");
+    puts(num);
+
+    
+    pos[0] = biToStr(num);
+    printf("row in S0: %i\n", pos[0]);
+    
+    //2-3
+    num[0] = lXor[1];
+    num[1] = lXor[2];
+    num[2] = '\0';
+
+    printf("lxor 2-3: ");
+    puts(num);
+    
+    pos[1] = biToStr(num);
+    printf("Col in S0: %i\n", pos[1]);
+
+    ext[0] = S0[pos[0]][pos[1]];
+    printf("S0: %d\n", ext[0]);
+    //printf("test S0: %d\n", S0[0][3]);
+
+    
+};
+
+void s1Box(){
+
+    char num[3];
+    int pos[2]; //pos[o is the row and pos[1] is the col of S0_box
+
+    //1-4
+    num[0] = rXor[0];
+    num[1] = rXor[3];
+    num[2] = '\0';
+
+    printf("rxor 1-4: ");
+    puts(num);
+
+    
+    pos[0] = biToStr(num);
+    printf("row in S1: %i\n", pos[0]);
+    
+    //2-3
+    num[0] = rXor[1];
+    num[1] = rXor[2];
+    num[2] = '\0';
+
+    printf("rxor 2-3: ");
+    puts(num);
+    
+    pos[1] = biToStr(num);
+    printf("Col in S1: %i\n", pos[1]);
+
+    ext[1] = S1[pos[0]][pos[1]];
+    printf("S1: %d\n", ext[1]);
+    //printf("test S0: %d\n", S0[0][3]);
+    decToBi();
+
+};
+
+void decToBi(){
+    printf("S0: %i\n", ext[0]);
+    if(ext[0] == 0){
+        temp4[0] = '0';
+        temp4[1] = '0';
+    }else if (ext[0] == 1){
+        temp4[0] = '0';
+        temp4[1] = '1';
+    }else if (ext[0] == 2){
+        temp4[0] = '1';
+        temp4[1] = '0';
+    }else{
+        temp4[0] = '1';
+        temp4[1] = '1';
+    }
+
+    if(ext[1] == 0){
+        temp4[2] = '0';
+        temp4[3] = '0';
+    }else if (ext[1] == 1){
+        temp4[2] = '0';
+        temp4[3] = '1';
+    }else if (ext[1] == 2){
+        temp4[2] = '1';
+        temp4[3] = '0';
+    }else{
+        temp4[2] = '1';
+        temp4[3] = '1';
+    }
+    temp4[4] = '\0';
+
+    printf("S-Box: ");
+    puts(temp4);
+}
+
+void p4(){
+
+    printf("P4: ");
+    for(i=0;i<4;++i){
+        ext[i] = temp4[P4[i]-1];      
+    }
+    for(i=0;i<4;++i){
+        temp4[i] = ext[i];      
+    }
+    temp4[4] = '\0';
+    printf("Ressult: ");
+    puts(temp4);
+
+};
 
 void fk(){
-
+     
     //mapping---
     //leftnright
     devideLeftRight();
@@ -414,6 +547,15 @@ void fk(){
     //Xor ----
     XOR();
 
+    //devide the result of XOR to left and right 4 bits
     devideLeftRightXor();
+    
+    //get the position in S0
+    s0Box();
+
+    //get the position in S1
+    s1Box();
+
+    p4();
 
 };
