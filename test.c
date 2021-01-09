@@ -35,6 +35,7 @@ char k2[9];                                        //second 8 bit key
 char plainText[9] = {'0','1','1','1','0','0','1','0', '\0'};                                 //the plaintext
 char l[5];		
 char r[5];
+char swR[5];
 char lXor[5];
 char rXor[5];
 int S0[4][4] = {{1, 0, 3, 2}, {3, 2, 1, 0}, {0, 2, 1, 3}, {3, 1, 3, 2}};                                   
@@ -81,6 +82,11 @@ int binaryToDecimal();
 void fk();
 
 void decToBi();
+
+void XOR4();
+
+void switchHalf();
+
 //-----------------main------------------
 int main(){
 
@@ -114,7 +120,18 @@ int main(){
     //initial Permutation
     initialPermutation();
 
-    fk();
+    devideLeftRight();
+    printf("--------------------------------------fk1---------------------------------------");
+    fk(1);
+
+    //step 7
+    XOR4();
+    printf("--------------------------------------fk2---------------------------------------");
+    //step 8
+    switchHalf();
+
+    fk(2);
+    XOR4();
 
     return 0;
     
@@ -334,10 +351,10 @@ void devideLeftRight(){
     
 };
 
-void expandpermutateR(){
+void expandpermutateR(char *str){
 
     for(i=0;i<8;++i){
-        temp8[i] = r[EP[i] - 1];
+        temp8[i] = str[EP[i] - 1];
     };
     temp8[8] = '\0';
     printf("EP-R: ");
@@ -345,11 +362,18 @@ void expandpermutateR(){
 
 };
 
-void XOR(){
-    printf("k1: ");
-    puts(k1);
+void XOR(char *k, int *ki){
+    
+    if(i==1){
+        printf("k1: ");
+        puts(k1);
+    }else{
+        printf("k2: ");
+        puts(k2);
+    }
+
     for(i=0;i<8;++i){
-        if(k1[i] == temp8[i])
+        if(k[i] == temp8[i])
             temp8[i] = '0';
         else
             temp8[i] = '1';
@@ -357,7 +381,7 @@ void XOR(){
         
     }
     temp8[8] = '\0';
-    printf("XOR: ");
+    printf("XOR%i: ", i);
     puts(temp8);
 };
 
@@ -535,17 +559,19 @@ void p4(){
 
 };
 
-void fk(){
+void fk(int *ki){
      
     //mapping---
     //leftnright
-    devideLeftRight();
+   
 
     //Expand and permutate R using E/P
-    expandpermutateR();
+    expandpermutateR(r);
 
     //Xor ----
-    XOR();
+    if(ki==1) XOR(k1, 1); 
+    else XOR(k2, 2);
+       
 
     //devide the result of XOR to left and right 4 bits
     devideLeftRightXor();
@@ -559,3 +585,38 @@ void fk(){
     p4();
 
 };
+
+void XOR4(){
+
+    for(i=0;i<4;++i){
+        if(temp4[i] == l[i])
+            temp4[i] = '0';
+        else
+            temp4[i] = '1';   
+    }
+    temp4[4] = '\0';
+    printf("XOR with l: ");
+    puts(temp4);
+};
+
+void switchHalf(){
+    
+    
+    for(i=0;i<4;++i){
+        l[i] = r[i];
+    }
+    l[4] = '\0';
+
+    printf("SW-L: ");
+    puts(l);
+
+    for(i=0;i<4;++i){
+        swR[i] = temp4[i];
+    }
+    swR[4] = '\0';
+
+    printf("SW-R: ");
+    puts(swR);
+
+}
+
