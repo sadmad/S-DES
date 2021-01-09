@@ -137,7 +137,7 @@ int main(){
     fk(2);
     XOR4();
     
-    printf("------------------------------------Outout--------------------------------------\n");
+    printf("------------------------------------Output--------------------------------------\n");
     combine();
     initialPermutationRev();
 
@@ -372,7 +372,7 @@ void expandpermutateR(char *str){
 
 void XOR(char *k, int *ki){
     
-    if(i==1){
+    if(ki==1){
         printf("k1: ");
         puts(k1);
     }else{
