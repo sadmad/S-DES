@@ -132,6 +132,7 @@ int main(){
 
     fk(2);
     XOR4();
+    
 
     return 0;
     
@@ -566,7 +567,12 @@ void fk(int *ki){
    
 
     //Expand and permutate R using E/P
-    expandpermutateR(r);
+    if (ki==1){
+        expandpermutateR(r);
+    }else{
+        expandpermutateR(swR);
+    }
+    
 
     //Xor ----
     if(ki==1) XOR(k1, 1); 
@@ -600,8 +606,7 @@ void XOR4(){
 };
 
 void switchHalf(){
-    
-    
+      
     for(i=0;i<4;++i){
         l[i] = r[i];
     }
@@ -620,3 +625,13 @@ void switchHalf(){
 
 }
 
+void initialPermutationRev(){
+
+    for(i=0;i<8;++i){
+        temp8[i] = plainText[ipRev[i]-1];
+    };
+    temp8[8] = '\0';
+    printf("Ciphertext: ");
+    puts(temp8);
+
+};
