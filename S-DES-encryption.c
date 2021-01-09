@@ -70,13 +70,13 @@ void plaintextInput();
 
 void initialPermutation();
 
-void devideLeftRight();
+void divideLeftRight();
 
 void expandpermutateR();
 
 void XOR();
 
-void devideLeftRightXor();
+void divideLeftRightXor();
 
 int binaryToDecimal();
 
@@ -124,7 +124,7 @@ int main(){
     //initial Permutation
     initialPermutation();
 
-    devideLeftRight();
+    divideLeftRight();
     printf("--------------------------------------fk1---------------------------------------\n");
     fk(1);
 
@@ -337,7 +337,7 @@ void initialPermutation(){
 
 };
 
-void devideLeftRight(){
+void divideLeftRight(){
     int j=4;
     for(i=0;i<8;++i){
         if(i<4){
@@ -393,7 +393,7 @@ void XOR(char *k, int *ki){
     puts(temp8);
 };
 
-void devideLeftRightXor(){
+void divideLeftRightXor(){
     int j=4;
     for(i=0;i<8;++i){
         if(i<4){
@@ -586,8 +586,8 @@ void fk(int *ki){
     else XOR(k2, 2);
        
 
-    //devide the result of XOR to left and right 4 bits
-    devideLeftRightXor();
+    //divide the result of XOR to left and right 4 bits
+    divideLeftRightXor();
     
     //get the position in S0
     s0Box();
