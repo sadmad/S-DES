@@ -25,14 +25,15 @@ const int EP[8] = {4, 1, 2, 3, 2, 3, 4, 1};
 const int P4[4] ={2, 4, 3, 1};
 int n = 0;                                         //used as a permanent holder for LS-2
 int i;                                             //use for for loops
-char inputKey[11] = {'1','0','1','0','0','0','0','0','1','0','\0'};                                 //The variable for storing the 10 bit input key from the user
+char inputKey[11];                                 //The variable for storing the 10 bit input key from the user
 char temp[11];                                     //is a temporary var for all of our calculation 
 char temp8[8];
 char temp4[5];                                     //8bits temo var 
 char ext[4];                                       //extra variable for permutation
 char k1[9];                                        //first 8 bit key - I added a null at the end of the key
 char k2[9];                                        //second 8 bit key
-char plainText[9] = {'0','1','1','1','0','0','1','0', '\0'};                                 //the plaintext
+char plainText[9];
+char cipherText[9];                                 //the plaintext                                 //the plaintext
 char l[5];		
 char r[5];
 char swR[5];
@@ -87,11 +88,14 @@ void XOR4();
 
 void switchHalf();
 
+void combine();
+
+void initialPermutationRev();
 //-----------------main------------------
 int main(){
 
     //get the inputKey from user
-    //getInput();
+    getInput();
 
     
     //starting to build k1
@@ -112,7 +116,7 @@ int main(){
     P8K2();
     
     //start to encript
-    //plaintextInput();
+    plaintextInput();
     
     printf("Your input was: ");
     puts(plainText);
@@ -121,18 +125,21 @@ int main(){
     initialPermutation();
 
     devideLeftRight();
-    printf("--------------------------------------fk1---------------------------------------");
+    printf("--------------------------------------fk1---------------------------------------\n");
     fk(1);
 
     //step 7
     XOR4();
-    printf("--------------------------------------fk2---------------------------------------");
+    printf("--------------------------------------fk2---------------------------------------\n");
     //step 8
     switchHalf();
 
     fk(2);
     XOR4();
     
+    printf("------------------------------------Outout--------------------------------------\n");
+    combine();
+    initialPermutationRev();
 
     return 0;
     
@@ -628,10 +635,25 @@ void switchHalf(){
 void initialPermutationRev(){
 
     for(i=0;i<8;++i){
-        temp8[i] = plainText[ipRev[i]-1];
+        cipherText[i] = temp8[ipRev[i]-1];
     };
-    temp8[8] = '\0';
+    cipherText[8] = '\0';
     printf("Ciphertext: ");
-    puts(temp8);
+    puts(cipherText);
 
 };
+
+void combine(){
+    int j=4;
+    for(i=0;i<8;++i){
+        if(i<4){
+            temp8[i] = temp4[i];
+        }else{
+            n = i - j;
+            temp8[i] = swR[n];
+        };
+    }
+    temp8[8]='\0';
+    printf("input: ");
+    puts(temp8);
+}
