@@ -5,6 +5,13 @@
     You find the pdf here:
     http://mercury.webster.edu/aleshunas/COSC%205130/G-SDES.pdf
 
+    You can use this examples for text the code:
+
+    • Plaintext: 11010101; Key: 0111010001; Ciphertext: 01110011
+    • Plaintext: 01001100; Key: 1111111111; Ciphertext: 00100010
+    • Plaintext: 00000000; Key: 0000000000; Ciphertext: 111100002
+    • Plaintext: 11111111; Key: 1111111111; Ciphertext: 00001111
+
 
 */
 
@@ -422,6 +429,10 @@ void divideLeftRightXor(){
 };
 
 /*
+I wanted to do the S-boxes part with this function but then I realized it will just make the code more complex!
+so I just ket it here for furure change.
+----------------------------------------------------
+
 int binaryToDecimal(int num){
     
     int dec_value = 0;
@@ -441,7 +452,10 @@ int binaryToDecimal(int num){
  
     return dec_value;
 };
+
+-----------------------------------------------------
 */
+
 int biToStr(char *n){
 
     if( strcmp(n, "00") == 0) return 0;

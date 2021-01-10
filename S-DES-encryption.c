@@ -5,6 +5,13 @@
     You find the pdf here:
     http://mercury.webster.edu/aleshunas/COSC%205130/G-SDES.pdf
 
+    You can use this examples for text the code:
+
+    • Plaintext: 11010101; Key: 0111010001; Ciphertext: 01110011
+    • Plaintext: 01001100; Key: 1111111111; Ciphertext: 00100010
+    • Plaintext: 00000000; Key: 0000000000; Ciphertext: 11110000
+    • Plaintext: 11111111; Key: 1111111111; Ciphertext: 00001111
+
 
 */
 
@@ -149,7 +156,11 @@ int main(){
 void getInput () {
 
     printf("Please enter 10 bits as key: ");
+
     /*
+    At first I wrote this code to get the key bit by bit, but it become pain in the ass in the procedure of debuging the code!
+    I decided to keep it for future changes.
+    -------------------------------------------------------------------------------------
     printf("Please enter 10 bits as input it will ask you a bit eachtime(10 times): ");
     for(i = 0; i < 10; ++i){      
         
@@ -173,6 +184,7 @@ void getInput () {
         };
 
     };
+    ---------------------------------------------------------------------------------------
     */
     scanf("%s", &inputKey);
     inputKey[10] = '\0';
@@ -416,6 +428,10 @@ void divideLeftRightXor(){
 };
 
 /*
+I wanted to do the S-boxes part with this function but then I realized it will just make the code more complex!
+so I just ket it here for furure change.
+----------------------------------------------------
+
 int binaryToDecimal(int num){
     
     int dec_value = 0;
@@ -435,6 +451,8 @@ int binaryToDecimal(int num){
  
     return dec_value;
 };
+
+-----------------------------------------------------
 */
 int biToStr(char *n){
 
