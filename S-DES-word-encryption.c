@@ -395,10 +395,15 @@ void ciphertextInput(){
 };
 
 void initialPermutation(){
-
-    for(i=0;i<8;++i){
-        temp8[i] = plainText[ip[i]-1];
-    };
+    if(phase ==1){
+        for(i=0;i<8;++i){
+            temp8[i] = plainText[ip[i]-1];
+        };
+    }else{
+        for(i=0;i<8;++i){
+            temp8[i] = cipherText[ip[i]-1];
+        };
+    }
     temp8[8] = '\0';
     printf("Plain text after initial Permutation: ");
     puts(temp8);
@@ -443,22 +448,28 @@ void expandpermutateR(char *str){
 
 void XOR(int ki){
     
-    if(ki==1){
+    if((ki==1 && phase == 1) || (ki ==1 && phase==2)){
         printf("k1: ");
         puts(k1);
+
+        for(i=0;i<8;++i){
+            if(k1[i] == temp8[i])
+                temp8[i] = '0';
+            else
+                temp8[i] = '1';    
+        }
     }else{
         printf("k2: ");
         puts(k2);
-    }
 
-    for(i=0;i<8;++i){
-        if(k[i] == temp8[i])
-            temp8[i] = '0';
-        else
-            temp8[i] = '1';
-        
-        
+        for(i=0;i<8;++i){
+            if(k2[i] == temp8[i])
+                temp8[i] = '0';
+            else
+                temp8[i] = '1';  
+        }
     }
+ 
     temp8[8] = '\0';
     printf("XOR%i: ", i);
     puts(temp8);
