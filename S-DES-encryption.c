@@ -12,7 +12,6 @@
     • Plaintext: 00000000; Key: 0000000000; Ciphertext: 11110000
     • Plaintext: 11111111; Key: 1111111111; Ciphertext: 00001111
 
-
 */
 
 #include <stdio.h>
@@ -182,7 +181,6 @@ void getInput () {
             printf("Please choose between 0 and 1!!!");
             i--;
         };
-
     };
     ---------------------------------------------------------------------------------------
     */
@@ -382,7 +380,7 @@ void expandpermutateR(char *str){
 
 };
 
-void XOR(char *k, int *ki){
+void XOR(char *k, int ki){
     
     if(ki==1){
         printf("k1: ");
@@ -431,7 +429,6 @@ void divideLeftRightXor(){
 I wanted to do the S-boxes part with this function but then I realized it will just make the code more complex!
 so I just ket it here for furure change.
 ----------------------------------------------------
-
 int binaryToDecimal(int num){
     
     int dec_value = 0;
@@ -451,7 +448,6 @@ int binaryToDecimal(int num){
  
     return dec_value;
 };
-
 -----------------------------------------------------
 */
 int biToStr(char *n){
@@ -585,7 +581,7 @@ void p4(){
 
 };
 
-void fk(int *ki){
+void fk(int ki){
      
     //mapping---
     //leftnright

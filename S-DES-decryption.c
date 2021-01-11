@@ -12,7 +12,6 @@
     • Plaintext: 00000000; Key: 0000000000; Ciphertext: 111100002
     • Plaintext: 11111111; Key: 1111111111; Ciphertext: 00001111
 
-
 */
 
 #include <stdio.h>
@@ -128,22 +127,22 @@ int main(){
     ciphertextInput();
     
     printf("Your input was: ");
-    puts(plainText);
+    puts(cipherText);
 
     //initial Permutation
     initialPermutation();
 
     divideLeftRight();
-    printf("--------------------------------------fk1---------------------------------------\n");
-    fk(1);
+    printf("--------------------------------------fk2---------------------------------------\n");
+    fk(2);
 
     //step 7
     XOR4();
-    printf("--------------------------------------fk2---------------------------------------\n");
+    printf("--------------------------------------fk1---------------------------------------\n");
     //step 8
     switchHalf();
 
-    fk(2);
+    fk(1);
     XOR4();
     
     printf("------------------------------------Output--------------------------------------\n");
@@ -329,7 +328,7 @@ void printK2(){
 
 void ciphertextInput(){
 
-    printf("Please enter the 8 bit plain text: ");
+    printf("Please enter the 8 bit ciphertext: ");
     scanf("%s", &cipherText);
     cipherText[8] = '\0';
 
@@ -383,24 +382,28 @@ void expandpermutateR(char *str){
 
 };
 
-void XOR(char *k, int *ki){
+void XOR(int ki){
     
     if(ki==1){
-        printf("k2: ");
-        puts(k2);
-    }else{
         printf("k1: ");
         puts(k1);
-    }
-
-    for(i=0;i<8;++i){
-        if(k[i] == temp8[i])
+        for(i=0;i<8;++i){
+        if(k1[i] == temp8[i])
             temp8[i] = '0';
         else
-            temp8[i] = '1';
-        
-        
-    }
+            temp8[i] = '1';   
+        }
+    }else{
+        printf("k2: ");
+        puts(k2);
+        for(i=0;i<8;++i){
+        if(k2[i] == temp8[i])
+            temp8[i] = '0';
+        else
+            temp8[i] = '1';   
+        }   
+    };
+    
     temp8[8] = '\0';
     printf("XOR%i: ", i);
     puts(temp8);
@@ -587,7 +590,7 @@ void p4(){
 
 };
 
-void fk(int *ki){
+void fk(int ki){
      
     //mapping---
     //leftnright
@@ -595,15 +598,15 @@ void fk(int *ki){
 
     //Expand and permutate R using E/P
     if (ki==1){
-        expandpermutateR(r);
-    }else{
         expandpermutateR(swR);
+    }else{
+        expandpermutateR(r);
     }
     
 
     //Xor ----
-    if(ki==1) XOR(k2, 1); 
-    else XOR(k1, 2);
+    if(ki==1) XOR(1); 
+    else XOR(2);
        
 
     //divide the result of XOR to left and right 4 bits

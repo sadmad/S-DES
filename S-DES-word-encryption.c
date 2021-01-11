@@ -18,6 +18,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 
 //initializing the variables
@@ -46,6 +47,7 @@ char r[5];
 char swR[5];
 char lXor[5];
 char rXor[5];
+int phase;
 int S0[4][4] = {{1, 0, 3, 2}, {3, 2, 1, 0}, {0, 2, 1, 3}, {3, 1, 3, 2}};                                   
 int S1[4][4] = {{0, 1, 2, 3}, {2, 0, 1, 3}, {3, 0, 1, 0}, {2, 1, 0, 3}};
 //............................
@@ -75,6 +77,8 @@ void printK2();
 //get the plain text from user 
 void plaintextInput();
 
+void ciphertextInput();
+
 void initialPermutation();
 
 void divideLeftRight();
@@ -98,59 +102,42 @@ void switchHalf();
 void combine();
 
 void initialPermutationRev();
+
+void enAndDecryption();
+
+bool continueencrypt();
+
 //-----------------main------------------
+
 int main(){
 
-    //get the inputKey from user
-    getInput();
+    phase = 1;
 
     
-    //starting to build k1
-    //applying p1
-    appllyP1();
 
-    //LS-1
-    LS1();
+    while(true){
+        //get the inputKey from user
+        getInput();
 
-    //applying P8
-    P8K1();
+        //it will do the whole en-decryption
+        enAndDecryption();
+        enAndDecryption();
+        
+        
+        //ask user if they want to continue the process
+        bool again = continueencrypt();
+        if(again){
+            phase=1;
+            continue;
+        }else break;
 
-    //starting to build k2
-    //Performing LS2
-    LS2();
+    }
     
-    //applying P8 on K2
-    P8K2();
-    
-    //start to encript
-    plaintextInput();
-    
-    printf("Your input was: ");
-    puts(plainText);
-
-    //initial Permutation
-    initialPermutation();
-
-    divideLeftRight();
-    printf("--------------------------------------fk1---------------------------------------\n");
-    fk(1);
-
-    //step 7
-    XOR4();
-    printf("--------------------------------------fk2---------------------------------------\n");
-    //step 8
-    switchHalf();
-
-    fk(2);
-    XOR4();
-    
-    printf("------------------------------------Output--------------------------------------\n");
-    combine();
-    initialPermutationRev();
 
     return 0;
     
 };
+
 //---------------end-of-main--------------
 
 void getInput () {
@@ -192,6 +179,70 @@ void getInput () {
     puts(inputKey);
     
 };
+void enAndDecryption(){
+
+    //starting to build k1
+    //applying p1
+    appllyP1();
+
+    //LS-1
+    LS1();
+
+    //applying P8
+    P8K1();
+
+    //starting to build k2
+    //Performing LS2
+    LS2();
+    
+    //applying P8 on K2
+    P8K2();
+    
+    //start to encript
+    if(phase == 1){
+        plaintextInput();
+        printf("Your input was: ");
+        puts(plainText);
+    }else{
+        printf("The Ciphertext was: ");
+        puts(cipherText);
+    }
+    //initial Permutation
+    initialPermutation();
+
+    divideLeftRight();
+    printf("--------------------------------------fk1---------------------------------------\n");
+    if(phase == 1) fk(1);
+    else fk(2);
+    
+
+    //step 7
+    XOR4();
+    printf("--------------------------------------fk2---------------------------------------\n");
+    //step 8
+    switchHalf();
+
+    if(phase == 1) fk(2);
+    else fk(1);
+    
+
+    XOR4();
+    
+    printf("------------------------------------Output--------------------------------------\n");
+    combine();
+    
+    initialPermutationRev();
+    if(phase ==1){
+        printf("------------------------------encription phase is done-------------------------------\n");
+        printf("The 10 bit key was: ");
+        puts(inputKey);
+    }else{
+        printf("-------------------------------decription phase is done-----------------------------\n");
+    }
+    phase = phase == 1 ? 2 : 1;
+    
+
+}
 
 void appllyP1 (){
 
@@ -335,6 +386,14 @@ void plaintextInput(){
 
 };
 
+void ciphertextInput(){
+
+    printf("Please enter the 8 bit plain text: ");
+    scanf("%s", &cipherText);
+    cipherText[8] = '\0';
+
+};
+
 void initialPermutation(){
 
     for(i=0;i<8;++i){
@@ -382,7 +441,7 @@ void expandpermutateR(char *str){
 
 };
 
-void XOR(char *k, int *ki){
+void XOR(char *k, int ki){
     
     if(ki==1){
         printf("k1: ");
@@ -585,7 +644,7 @@ void p4(){
 
 };
 
-void fk(int *ki){
+void fk(int ki){
      
     //mapping---
     //leftnright
@@ -674,4 +733,21 @@ void combine(){
     temp8[8]='\0';
     printf("input: ");
     puts(temp8);
+}
+
+bool continueencrypt(){
+    char ans;
+    
+    printf("Do you want to encrypt another plaintext?(y/n) ");
+
+    do{
+        scanf("%c", &ans);
+        if(ans == 'y'){
+            return true;
+        }else if(ans == 'n'){
+            return false;
+        }
+    }while(true);
+    
+    
 }
