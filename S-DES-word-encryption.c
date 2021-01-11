@@ -441,7 +441,7 @@ void expandpermutateR(char *str){
 
 };
 
-void XOR(char *k, int ki){
+void XOR(int ki){
     
     if(ki==1){
         printf("k1: ");
@@ -651,7 +651,7 @@ void fk(int ki){
    
 
     //Expand and permutate R using E/P
-    if (ki==1){
+    if (ki==1 && phase == 1 || ki==2 && phase ==2){
         expandpermutateR(r);
     }else{
         expandpermutateR(swR);
@@ -659,8 +659,8 @@ void fk(int ki){
     
 
     //Xor ----
-    if(ki==1) XOR(k1, 1); 
-    else XOR(k2, 2);
+    if(ki==1) XOR(1); 
+    else XOR(2);
        
 
     //divide the result of XOR to left and right 4 bits

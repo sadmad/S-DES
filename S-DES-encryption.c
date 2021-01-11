@@ -380,24 +380,29 @@ void expandpermutateR(char *str){
 
 };
 
-void XOR(char *k, int ki){
+void XOR(int ki){
     
     if(ki==1){
         printf("k1: ");
         puts(k1);
-    }else{
-        printf("k2: ");
-        puts(k2);
-    }
-
-    for(i=0;i<8;++i){
-        if(k[i] == temp8[i])
+        for(i=0;i<8;++i){
+        if(k1[i] == temp8[i])
             temp8[i] = '0';
         else
             temp8[i] = '1';
-        
-        
+         }
+    }else{
+        printf("k2: ");
+        puts(k2);
+        for(i=0;i<8;++i){
+        if(k2[i] == temp8[i])
+            temp8[i] = '0';
+        else
+            temp8[i] = '1';
+        }
     }
+
+    
     temp8[8] = '\0';
     printf("XOR%i: ", i);
     puts(temp8);
@@ -596,8 +601,8 @@ void fk(int ki){
     
 
     //Xor ----
-    if(ki==1) XOR(k1, 1); 
-    else XOR(k2, 2);
+    if(ki==1) XOR(1); 
+    else XOR(2);
        
 
     //divide the result of XOR to left and right 4 bits
