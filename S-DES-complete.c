@@ -32,7 +32,9 @@ const int sw[] = {4, 5, 6, 7, 0, 1, 2, 3};         //sw used in the fk function2
 const int EP[8] = {4, 1, 2, 3, 2, 3, 4, 1};
 const int P4[4] ={2, 4, 3, 1};
 int n = 0;                                         //used as a permanent holder for LS-2
-int i;                                             //use for for loops
+int i;
+int row;
+int col;                                             //use for for loops
 char inputKey[11];                                 //The variable for storing the 10 bit input key from the user
 char temp[11];                                     //is a temporary var for all of our calculation 
 char temp8[8];
@@ -41,6 +43,7 @@ char ext[4];                                       //extra variable for permutat
 char k1[9];                                        //first 8 bit key - I added a null at the end of the key
 char k2[9];                                        //second 8 bit key
 char plainText[9];
+char binaryPlainText[200][9];
 char cipherText[9];
 char output[9];                                 //the plaintext                                 //the plaintext
 char l[5];		
@@ -106,6 +109,7 @@ void enAndDecryption();
 
 bool continueencrypt();
 
+void plainTextToBi();
 //-----------------main------------------
 
 int main(){
@@ -142,7 +146,12 @@ int main(){
 void getInput () {
 
     printf("Please enter 10 bits as key: ");
-
+    scanf("%s", &inputKey);
+    inputKey[10] = '\0';
+    
+    printf("input: ");
+    puts(inputKey);
+    
     /*
     At first I wrote this code to get the key bit by bit, but it become pain in the ass in the procedure of debuging the code!
     I decided to keep it for future changes.
@@ -172,12 +181,9 @@ void getInput () {
     };
     ---------------------------------------------------------------------------------------
     */
-    scanf("%s", &inputKey);
-    inputKey[10] = '\0';
-    printf("input: ");
-    puts(inputKey);
-    
+      
 };
+
 void enAndDecryption(){
 
     //starting to build k1
@@ -200,8 +206,8 @@ void enAndDecryption(){
     //start to encript
     if(phase == 1){
         plaintextInput();
-        printf("Your input was: ");
-        puts(plainText);
+        plainTextToBi();
+        
     }else{
         //printf("The Ciphertext was: ");
         //puts(cipherText);
@@ -236,7 +242,7 @@ void enAndDecryption(){
         printf("The 10 bit key was: ");
         puts(inputKey);
     }else{
-        printf("-------------------------------decription phase is done-----------------------------\n");
+        printf("------------------------------decription phase is done-------------------------------\n");
     }
     phase = phase == 1 ? 2 : 1;
     
@@ -379,12 +385,23 @@ void printK2(){
 
 void plaintextInput(){
 
-    printf("Please enter the 8 bit plain text: ");
+    printf("Please enter the plaintext: ");
     scanf("%s", &plainText);
-    plainText[8] = '\0';
-
 
 };
+
+void plainTextToBi(){
+
+    int len = strlen(plainText);
+        printf("---------\n");
+        for(row=0;row<len;++row){
+            for(col=7; col>=0; --col)
+                binaryPlainText[row][col] = (plainText[row] & (1 << col)) ? '1' : '0';
+            binaryPlainText[row][8] = '/0';
+            printf("%c: ", plainText[row]);
+            puts(binaryPlainText[row]);
+        }
+}
 
 void initialPermutation(){
     if(phase ==1){
@@ -729,7 +746,6 @@ void initialPermutationRev(){
         puts(output);
     }
     
-
 };
 
 void combine(){

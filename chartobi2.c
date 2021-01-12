@@ -4,7 +4,7 @@
 int main(){
     char msg[20];
     int len;
-    char bichar[10][9];
+    char bichar[10][9]; 
 
     printf("Enter your char: ");
     scanf("%s", msg);
