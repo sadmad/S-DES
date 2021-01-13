@@ -12,10 +12,10 @@ int main(){
     len = strlen(msg);
     
     for(int i=0;i<len;++i){
-        for(int j=7; j>=0; --j)
-            bichar[i][j] = (msg[i] & (1 << j)) ? '1' : '0';
+        for(int j=0; j<=7; ++j)
+            bichar[i][7-j] = (msg[i] & (1 << j)) ? '1' : '0';
         
-        bichar[i][8] = '/0';
+        bichar[i][8] = '\0';
         puts(bichar[i]);
     }
 }

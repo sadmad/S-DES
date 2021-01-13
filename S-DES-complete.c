@@ -35,6 +35,7 @@ int n = 0;                                         //used as a permanent holder 
 int i;
 int row;
 int col;                                             //use for for loops
+int len;
 char inputKey[11];                                 //The variable for storing the 10 bit input key from the user
 char temp[11];                                     //is a temporary var for all of our calculation 
 char temp8[8];
@@ -43,9 +44,9 @@ char ext[4];                                       //extra variable for permutat
 char k1[9];                                        //first 8 bit key - I added a null at the end of the key
 char k2[9];                                        //second 8 bit key
 char plainText[9];
-char binaryPlainText[200][9];
-char cipherText[9];
-char output[9];                                 //the plaintext                                 //the plaintext
+char binaryPlainText[200][8];
+char cipherText[200][9];
+char output[200][9];                                 //the plaintext                                 //the plaintext
 char l[5];		
 char r[5];
 char swR[5];
@@ -126,7 +127,31 @@ int main(){
         enAndDecryption();
         enAndDecryption();
         
+        printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+        printf("|                                                                   |\n");
+        printf("|                              S-DES                                |\n");
+        printf("|                                                                   |\n");
+        printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+        printf("|                                                                   |\n");
+        printf("|                   The Text that you input was                     |\n");
+        printf("|                                                                   |\n");
+        printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+        printf("|                                                                   |\n");
+        printf("|                                                                   |\n");
         
+
+        for(i=0;i<len;++i){
+            char Binary[9];
+            strcpy(Binary, output[i]);
+            //Binary[9] = '\0';
+            puts(Binary);
+            int x, out;
+            x=strtol(Binary, (char **)NULL, 2);
+            out = x;
+            printf("%c\n", out);
+        }
+        
+            
         //ask user if they want to continue the process
         bool again = continueencrypt();
         if(again){
@@ -206,44 +231,50 @@ void enAndDecryption(){
     //start to encript
     if(phase == 1){
         plaintextInput();
-        plainTextToBi();
+        len = strlen(plainText);
+        printf("---------\n");
+        for(row=0;row<len;++row){
+            for(col=7; col>=0; --col)
+                binaryPlainText[row][7-col] = (plainText[row] & (1 << col)) ? '1' : '0';
+            binaryPlainText[row][8] = '\0';
+            printf("!!!!%c: ", plainText[row]);
+            puts(binaryPlainText[row]);
+
+            //initial Permutation
+            initialPermutation();
+            divideLeftRight();
+            fk(1);
+            XOR4();
+            switchHalf();
+            fk(2);
+            XOR4();
+            combine();
+            initialPermutationRev();
+            printf("------------------------------encription phase is done-------------------------------\n");
+            printf("The 10 bit key was: ");
+            puts(inputKey);
+        }
         
     }else{
         //printf("The Ciphertext was: ");
         //puts(cipherText);
+        for(row=0;row<len;++row){
+            //initial Permutation
+            initialPermutation();
+            divideLeftRight();
+            fk(2);
+            XOR4();
+            switchHalf();
+            fk(1);
+            XOR4();
+            combine();
+            initialPermutationRev();
+            printf("------------------------------decription phase is done-------------------------------\n");
+            
+        }
     }
-    //initial Permutation
-    initialPermutation();
 
-    divideLeftRight();
-    //printf("--------------------------------------fk1---------------------------------------\n");
-    if(phase == 1) fk(1);
-    else fk(2);
-    
-
-    //step 7
-    XOR4();
-    //printf("--------------------------------------fk2---------------------------------------\n");
-    //step 8
-    switchHalf();
-
-    if(phase == 1) fk(2);
-    else fk(1);
-    
-
-    XOR4();
-    
-    printf("------------------------------------The output of phase %i-------------------------------\n", (phase == 2) ? 2:1);
-    combine();
-    
-    initialPermutationRev();
-    if(phase ==1){
-        printf("------------------------------encription phase is done-------------------------------\n");
-        printf("The 10 bit key was: ");
-        puts(inputKey);
-    }else{
-        printf("------------------------------decription phase is done-------------------------------\n");
-    }
+   
     phase = phase == 1 ? 2 : 1;
     
 
@@ -393,24 +424,24 @@ void plaintextInput(){
 void plainTextToBi(){
 
     int len = strlen(plainText);
-        printf("---------\n");
-        for(row=0;row<len;++row){
-            for(col=7; col>=0; --col)
-                binaryPlainText[row][col] = (plainText[row] & (1 << col)) ? '1' : '0';
-            binaryPlainText[row][8] = '/0';
-            printf("%c: ", plainText[row]);
-            puts(binaryPlainText[row]);
-        }
+    printf("---------\n");
+    for(row=0;row<len;++row){
+        for(col=7; col>=0; --col)
+            binaryPlainText[row][col] = (plainText[row] & (1 << col)) ? '1' : '0';
+        binaryPlainText[row][8] = '/0';
+        printf("%c: ", plainText[row]);
+        puts(binaryPlainText[row]);
+    }
 }
 
 void initialPermutation(){
     if(phase ==1){
         for(i=0;i<8;++i){
-            temp8[i] = plainText[ip[i]-1];
+            temp8[i] = binaryPlainText[row][ip[i]-1];
         };
     }else{
         for(i=0;i<8;++i){
-            temp8[i] = cipherText[ip[i]-1];
+            temp8[i] = cipherText[row][ip[i]-1];
         };
     }
     temp8[8] = '\0';
@@ -732,18 +763,18 @@ void initialPermutationRev(){
 
     if(phase == 1){
         for(i=0;i<8;++i){
-            cipherText[i] = temp8[ipRev[i]-1];
+            cipherText[row][i] = temp8[ipRev[i]-1];
         };
-        cipherText[8] = '\0';
-        printf("Ciphertext: ");
-        puts(cipherText);
+        cipherText[row][8] = '\0';
+        printf("Ciphertext%i: ", row);
+        puts(cipherText[row]);
     }else{
         for(i=0;i<8;++i){
-            output[i] = temp8[ipRev[i]-1];
+            output[row][i] = temp8[ipRev[i]-1];
         };
-        output[8] = '\0';
-        printf("PlainText: ");
-        puts(output);
+        output[row][8] = '\0';
+        printf("PlainText In binary: ");
+        puts(output[row]);
     }
     
 };
