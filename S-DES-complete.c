@@ -170,6 +170,7 @@ int main(){
             out = x;
             printf("%c", out);
         }
+        printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
         
             
         //ask user if they want to continue the process
