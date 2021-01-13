@@ -34,6 +34,7 @@ const int EP[8] = {4, 1, 2, 3, 2, 3, 4, 1};
 const int P4[4] ={2, 4, 3, 1};
 int n = 0;                                         //used as a permanent holder for LS-2
 int i;
+int j;
 int row;
 int col;                                             //use for for loops
 int len;
@@ -145,7 +146,7 @@ int main(){
         printf("|                                                                   |\n");
         printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
         for(i=0;i<len;++i){
-            for(int j=0;j<8;++j)
+            for(j=0;j<8;++j)
                 printf("%c",binaryPlainText[i][j]);
             printf("\n");
         }
