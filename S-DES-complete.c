@@ -136,15 +136,35 @@ int main(){
         printf("|                   The Text that you input was                     |\n");
         printf("|                                                                   |\n");
         printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+        printf("Plaintext: ");       
+        puts(plainText);
+        printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
         printf("|                                                                   |\n");
+        printf("|                     the Binary representation                     |\n");
         printf("|                                                                   |\n");
-        
-
+        printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+        puts(binaryPlainText);
+        printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+        printf("|                                                                   |\n");
+        printf("|                        The 10 bit key was                         |\n");
+        printf("|                                                                   |\n");
+        printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+        puts(inputKey);
+        printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+        printf("|                                                                   |\n");
+        printf("|                        The Ciphertext                             |\n");
+        printf("|                                                                   |\n");
+        printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+        puts(cipherText);
+        printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+        printf("|                                                                   |\n");
+        printf("|                        The decrypted plaintext                    |\n");
+        printf("|                                                                   |\n");
+        printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
         for(i=0;i<len;++i){
             char Binary[9];
             strcpy(Binary, output[i]);
             //Binary[9] = '\0';
-            puts(Binary);
             int x, out;
             x=strtol(Binary, (char **)NULL, 2);
             out = x;
@@ -237,8 +257,8 @@ void enAndDecryption(){
             for(col=7; col>=0; --col)
                 binaryPlainText[row][7-col] = (plainText[row] & (1 << col)) ? '1' : '0';
             binaryPlainText[row][8] = '\0';
-            printf("!!!!%c: ", plainText[row]);
-            puts(binaryPlainText[row]);
+            //printf("!!!!%c: ", plainText[row]);
+            //puts(binaryPlainText[row]);
 
             //initial Permutation
             initialPermutation();
@@ -250,9 +270,7 @@ void enAndDecryption(){
             XOR4();
             combine();
             initialPermutationRev();
-            printf("------------------------------encription phase is done-------------------------------\n");
-            printf("The 10 bit key was: ");
-            puts(inputKey);
+            //printf("------------------------------encription phase is done-------------------------------\n");
         }
         
     }else{
@@ -269,7 +287,7 @@ void enAndDecryption(){
             XOR4();
             combine();
             initialPermutationRev();
-            printf("------------------------------decription phase is done-------------------------------\n");
+            //printf("------------------------------decription phase is done-------------------------------\n");
             
         }
     }
