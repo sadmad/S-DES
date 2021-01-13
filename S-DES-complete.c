@@ -21,6 +21,7 @@
 #include <stdbool.h>
 
 
+
 //initializing the variables
 //--------------------------
 
@@ -43,7 +44,7 @@ char temp4[5];                                     //8bits temo var
 char ext[4];                                       //extra variable for permutation
 char k1[9];                                        //first 8 bit key - I added a null at the end of the key
 char k2[9];                                        //second 8 bit key
-char plainText[9];
+char plainText[200];
 char binaryPlainText[200][8];
 char cipherText[200][9];
 char output[200][9];                                 //the plaintext                                 //the plaintext
@@ -133,32 +134,37 @@ int main(){
         printf("|                                                                   |\n");
         printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
         printf("|                                                                   |\n");
-        printf("|                   The Text that you input was                     |\n");
+        printf("|                       Text that you entered                       |\n");
         printf("|                                                                   |\n");
         printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
         printf("Plaintext: ");       
         puts(plainText);
         printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
         printf("|                                                                   |\n");
-        printf("|                     the Binary representation                     |\n");
+        printf("|                         Binary representation                     |\n");
         printf("|                                                                   |\n");
         printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
-        puts(binaryPlainText);
+        for(i=0;i<len;++i){
+            for(int j=0;j<8;++j)
+                printf("%c",binaryPlainText[i][j]);
+            printf("\n");
+        }
         printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
         printf("|                                                                   |\n");
-        printf("|                        The 10 bit key was                         |\n");
+        printf("|                            10 bit key was                         |\n");
         printf("|                                                                   |\n");
         printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
         puts(inputKey);
         printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
         printf("|                                                                   |\n");
-        printf("|                        The Ciphertext                             |\n");
+        printf("|                            Ciphertext                             |\n");
         printf("|                                                                   |\n");
         printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
-        puts(cipherText);
+        for(i=0;i<len;++i)
+            puts(cipherText[i]);
         printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
         printf("|                                                                   |\n");
-        printf("|                        The decrypted plaintext                    |\n");
+        printf("|                        decrypted plaintext                        |\n");
         printf("|                                                                   |\n");
         printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
         for(i=0;i<len;++i){
@@ -170,7 +176,7 @@ int main(){
             out = x;
             printf("%c", out);
         }
-         printf("\n");
+        printf("\n");
         printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
         
             
@@ -437,8 +443,8 @@ void printK2(){
 void plaintextInput(){
 
     printf("Please enter the plaintext: ");
-    scanf("%s", &plainText);
-
+    scanf (" %[^\n]%*c", plainText);
+    
 };
 
 void plainTextToBi(){
