@@ -168,7 +168,7 @@ int main(){
             int x, out;
             x=strtol(Binary, (char **)NULL, 2);
             out = x;
-            printf("%c\n", out);
+            printf("%c", out);
         }
         
             
