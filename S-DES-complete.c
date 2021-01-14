@@ -793,15 +793,15 @@ void initialPermutationRev(){
             cipherText[row][i] = temp8[ipRev[i]-1];
         };
         cipherText[row][8] = '\0';
-        printf("Ciphertext%i: ", row);
-        puts(cipherText[row]);
+        //printf("Ciphertext%i: ", row);
+        //puts(cipherText[row]);
     }else{
         for(i=0;i<8;++i){
             output[row][i] = temp8[ipRev[i]-1];
         };
         output[row][8] = '\0';
-        printf("PlainText In binary: ");
-        puts(output[row]);
+        //printf("PlainText In binary: ");
+        //puts(output[row]);
     }
     
 };
