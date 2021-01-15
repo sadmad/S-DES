@@ -495,7 +495,7 @@ void expandpermutateR(char *str){
     printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
     
     if(strcmp(temp8, "11000011") != 0) err++;
-    scanf("%c", temp8);
+    
     
 
 };
@@ -503,8 +503,7 @@ void expandpermutateR(char *str){
 void XOR(int ki){
     
     if(ki==1){
-        printf("k1: ");
-        puts(k1);
+        
         for(i=0;i<8;++i){
         if(k1[i] == temp8[i])
             temp8[i] = '0';
@@ -512,8 +511,8 @@ void XOR(int ki){
             temp8[i] = '1';
          }
     }else{
-        printf("k2: ");
-        puts(k2);
+        
+        
         for(i=0;i<8;++i){
         if(k2[i] == temp8[i])
             temp8[i] = '0';
@@ -540,7 +539,7 @@ void XOR(int ki){
     printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
     
     if(strcmp(temp8, "01100111") != 0) err++;
-    scanf("%c", temp);
+    
 };
 
 void divideLeftRightXor(){
@@ -598,51 +597,44 @@ void s0Box(){
 
     char num[3];
     int pos[2]; //pos[o is the row and pos[1] is the col of S0_box
-
+    printf("|    a. For S0: 0110 as input: b1,b4 for row, b2,b3 for column    |\n");
+    printf("|             b. Row 00, column 11 -> output is 10                |\n");
+    printf("|                                                                 |\n");
+    printf("|                   row 1-4: ");
     //1-4
     num[0] = lXor[0];
     num[1] = lXor[3];
     num[2] = '\0';
-
-    printf("lxor 1-4: ");
-    puts(num);
-
     
+    printf("%c%c", num[0], num[1]);
     pos[0] = biToStr(num);
-    printf("row in S0: %i\n", pos[0]);
+    pos[2] = '\0';
+    printf(" -> decimal: %i                     |\n", pos[0]);
+    
     
     //2-3
     num[0] = lXor[1];
     num[1] = lXor[2];
     num[2] = '\0';
-
-    printf("lxor 2-3: ");
-    puts(num);
-    
+    printf("|                   col 2-3: ");
+    printf("%c%c", num[0], num[1]);
     pos[1] = biToStr(num);
-    printf("Col in S0: %i\n", pos[1]);
-
+    pos[2] = '\0';
+    printf(" -> decimal: %i                     |\n", pos[1]);
+    printf("|                                                                 |\n");
+    printf("|                           0  1  2  3                            |\n");
+    printf("|                        0 |1  0  3  2|                           |\n");
+    printf("|                 S0 =   1 |3  2  1  0|                           |\n");
+    printf("|                        2 |0  2  1  3|                           |\n");
+    printf("|                        3 |3  1  3  2|                           |\n");
+    printf("|                                                                 |\n");
     ext[0] = S0[pos[0]][pos[1]];
-    printf("S0: %d\n", ext[0]);
-    //printf("test S0: %d\n", S0[0][3]);
-    printf("|             Input left halve of step 4 into S-Box S0            |\n");
-    printf("|                 The result of this step must be                 |\n");
-    printf("|                            01100111                             |\n");
     printf("|                                                                 |\n");
-    printf("|                 The result of this approach is                  |\n");        
-    printf("|                            ");
-    for(i=0 ; i<8; ++i)
-    printf("%c", temp8[i]);
-    printf("                             |\n");
+    printf("|                    row 0 col 3 of S0 is: %d", ext[0]);
+    printf("                      |\n");
     printf("|                                                                 |\n");
-    printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
-    printf("|          *** ");
-    strcmp(temp8, "01100111") == 0 ? printf("The Test for this step was successful") : printf("The test was not successful");
-    printf("***           |\n");
-    printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
-    
-    if(strcmp(temp8, "01100111") != 0) err++;
-    
+   
+  
 };
 
 void s1Box(){
@@ -650,59 +642,67 @@ void s1Box(){
     char num[3];
     int pos[2]; //pos[o is the row and pos[1] is the col of S0_box
 
+    printf("|                   c. For S1: 0111 as input:                     |\n");
+    printf("|              d. Row 01, column 11 -> output is 11               |\n");
+    printf("|                                                                 |\n");
     //1-4
     num[0] = rXor[0];
     num[1] = rXor[3];
     num[2] = '\0';
-
-    
     pos[0] = biToStr(num);
-    printf("row in S1: %i\n", pos[0]);
+    printf("|                   row 1-4: ");
+    printf("%c%c", num[0], num[1]);
+    pos[0] = biToStr(num);
+    pos[2] = '\0';
+    printf(" -> decimal: %i                     |\n", pos[0]);
     
     //2-3
     num[0] = rXor[1];
     num[1] = rXor[2];
     num[2] = '\0';
 
-    printf("rxor 2-3: ");
-    puts(num);
     
     pos[1] = biToStr(num);
-    printf("Col in S1: %i\n", pos[1]);
-
+    printf("|                   col 2-3: ");
+    printf("%c%c", num[0], num[1]);
+    pos[1] = biToStr(num);
+    pos[2] = '\0';
+    printf(" -> decimal: %i                     |\n", pos[1]);
+    printf("|                                                                 |\n");
+    printf("|                           0  1  2  3                            |\n");
+    printf("|                        0 |0  1  2  3|                           |\n");
+    printf("|                 S1 =   1 |2  0  1  3|                           |\n");
+    printf("|                        2 |3  0  1  0|                           |\n");
+    printf("|                        3 |2  1  0  3|                           |\n");
+    printf("|                                                                 |\n");
     ext[1] = S1[pos[0]][pos[1]];
-    printf("S1: %d\n", ext[1]);
-
-    printf("|    a. For S0: 0110 as input: b1,b4 for row, b2,b3 for column    |\n");
-    printf("|             b. Row 00, column 11 -> output is 10                |\n");
     printf("|                                                                 |\n");
-    printf("|                            result: ");
-    printf("%c %c", num[0], num[1]);
-    printf("                             |\n");
+    printf("|                    row 1 col 3 of S1 is: %d", ext[1]);
+    printf("                      |\n");
     printf("|                                                                 |\n");
-    printf("|                 The result of this approach is                  |\n");        
-    printf("|                            ");
+   
+    decToBi();
+    printf("|                                                                 |\n");
+    printf("|                 The result of this approach is                  |\n");  
+    printf("|                          S-Box: ");       
     for(i=0 ; i<8; ++i)
-    printf("%c", temp8[i]);
-    printf("                             |\n");
+        printf("%c", temp4[i]);
+    printf("                            |\n");
     printf("|                                                                 |\n");
     printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
     printf("|          *** ");
-    strcmp(temp8, "01100111") == 0 ? printf("The Test for this step was successful") : printf("The test was not successful");
+    strcmp(temp4, "1011") == 0 ? printf("The Test for this step was successful") : printf("The test was not successful");
     printf("***           |\n");
     printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
     
-    if(strcmp(temp8, "01100111") != 0) err++;
-    //printf("test S0: %d\n", S0[0][3]);
+    if(strcmp(temp4, "1011") != 0) err++;
+   
+    
     scanf("%c", temp);
-    decToBi();
-
-
 
 };
 
 void decToBi(){
-    printf("S0: %i\n", ext[0]);
     if(ext[0] == 0){
         temp4[0] = '0';
         temp4[1] = '0';
@@ -731,9 +731,6 @@ void decToBi(){
         temp4[3] = '1';
     }
     temp4[4] = '\0';
-
-    printf("S-Box: ");
-    puts(temp4);
 }
 
 void p4(){
