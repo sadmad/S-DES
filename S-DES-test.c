@@ -698,7 +698,7 @@ void s1Box(){
     if(strcmp(temp4, "1011") != 0) err++;
    
     
-    scanf("%c", temp);
+
 
 };
 
@@ -734,8 +734,10 @@ void decToBi(){
 }
 
 void p4(){
-
-    printf("P4: ");
+    
+    printf("|                  Rearrange outputs from step 5                  |\n");
+    printf("|                      (1011) using P4: 0111                      |\n");
+    printf("|                                                                 |\n");
     for(i=0;i<4;++i){
         ext[i] = temp4[P4[i]-1];      
     }
@@ -743,8 +745,21 @@ void p4(){
         temp4[i] = ext[i];      
     }
     temp4[4] = '\0';
-    printf("Ressult: ");
-    puts(temp4);
+    printf("|                 The result of this approach is                  |\n");  
+    printf("|                          result: ");       
+    for(i=0;i<4;++i) printf("%c", temp4[i]);      
+    printf("                           |\n");
+    printf("|                                                                 |\n");
+    printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+    printf("|          *** ");
+    strcmp(temp4, "0111") == 0 ? printf("The Test for this step was successful") : printf("The test was not successful");
+    printf("***           |\n");
+    printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+    
+    if(strcmp(temp4, "0111") != 0) err++;
+   
+    
+    
 
 };
 
@@ -788,10 +803,26 @@ void XOR4(){
         else
             temp4[i] = '1';   
     }
+    printf("|            XOR output from step 6 with L from step 2:           |\n");
+    printf("|                      0111 XOR 1010 = 1101                       |\n");
+    printf("|                                                                 |\n");
     temp4[4] = '\0';
-    printf("XOR with l: ");
-    puts(temp4);
-};
+    printf("|                 The result of this approach is                  |\n");  
+    printf("|                          result: "); 
+    for(i=0;i<4;++i) printf("%c", temp4[i]);      
+    printf("                           |\n");
+    printf("|                                                                 |\n");
+    printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+    printf("|          *** ");
+    strcmp(temp4, "1101") == 0 ? printf("The Test for this step was successful") : printf("The test was not successful");
+    printf("***           |\n");
+    printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+    
+    if(strcmp(temp4, "1101") != 0) err++;
+   
+    
+    
+}
 
 void switchHalf(){
       
@@ -800,17 +831,39 @@ void switchHalf(){
     }
     l[4] = '\0';
 
-    printf("SW-L: ");
-    puts(l);
+    
 
     for(i=0;i<4;++i){
         swR[i] = temp4[i];
     }
     swR[4] = '\0';
 
-    printf("SW-R: ");
-    puts(swR);
-
+    
+    printf("|        Now we have the output of step 7 as the left half        |\n");
+    printf("|              and the original R as the right half               |\n");
+    printf("|        Switch the halves and move to round 2: 1001 1101         |\n");
+    printf("|                                                                 |\n");
+    printf("|                     The result of first half                    |\n");  
+    printf("|                            left: "); 
+    for(i=0;i<4;++i) printf("%c", l[i]);      
+    printf("                           |\n");
+    printf("|                    The result of second half                    |\n");  
+    printf("|                           right: "); 
+    for(i=0;i<4;++i) printf("%c", swR[i]);      
+    printf("                           |\n");
+    printf("|                                                                 |\n");
+    printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+    printf("|          *** ");
+    strcmp(l, "1001") == 0 ? printf("The Test for first half was successful") : printf("The test was not successful");
+    printf("***          |\n");
+    printf("|          *** ");
+    strcmp(swR, "1101") == 0 ? printf("The Test for second half was successful") : printf("The test was not successful");
+    printf("***         |\n");
+    printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+    
+    if(strcmp(l, "1001") != 0 && strcmp(swR, "1101") != 0) err++;
+    
+    scanf("%c", temp); 
 }
 
 void initialPermutationRev(){
