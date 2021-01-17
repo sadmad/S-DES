@@ -163,6 +163,17 @@ int main(){
         printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
         for(i=0;i<len;++i)
             puts(cipherText[i]);
+        printf("\nCiphertext: ");
+        for(i=0;i<len;++i){
+            char Binary[9];
+            strcpy(Binary, cipherText[i]);
+            //Binary[9] = '\0';
+            int x, out;
+            x=strtol(Binary, (char **)NULL, 2);
+            out = x;
+            printf("%c", out);
+        }
+        printf("\n");
         printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
         printf("|                                                                   |\n");
         printf("|                        decrypted plaintext                        |\n");
