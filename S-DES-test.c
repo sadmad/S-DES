@@ -104,34 +104,34 @@ int main(){
     //get the inputKey from user
     getInput();
 
-    printf("The algorithm has ended with %i Error\n", err);
+    
     //starting to build k1
     //applying p1
     appllyP1();
-    printf("The algorithm has ended with %i Error\n", err);
+    
     //LS-1
     LS1();
-    printf("The algorithm has ended with %i Error\n", err);
+    
     //applying P8
     P8K1();
-    printf("The algorithm has ended with %i Error\n", err);
+    
     //starting to build k2
     //Performing LS2
     LS2();
-    printf("The algorithm has ended with %i Error\n", err);
+    
     //applying P8 on K2
     P8K2();
-    printf("The algorithm has ended with %i Error\n", err);
+    
     //start to encript
     plaintextInput();
-    printf("The algorithm has ended with %i Error\n", err);
+    
     //initial Permutation
     initialPermutation();
-    printf("The algorithm has ended with %i Error\n", err);
+    
     divideLeftRight();
     //printf("--------------------------------------fk1---------------------------------------\n");
     fk(1);
-    printf("The algorithm has ended with %i Error\n", err);
+    
     //step 7
     XOR4(1);
     //printf("--------------------------------------fk2---------------------------------------\n");
@@ -139,9 +139,9 @@ int main(){
     switchHalf();
 
     fk(2);
-    printf("The algorithm has ended with %i Error\n", err);
+    
     XOR4(2);
-    printf("The algorithm has ended with %i Error\n", err);
+    
     //printf("------------------------------------Output--------------------------------------\n");
     combine();
     initialPermutationRev();
@@ -468,7 +468,8 @@ void divideLeftRight(){
     
     if (strcmp(l, "1010") != 0 && strcmp(r, "1001") != 0) err++;
     
-    
+           
+
     
 };
 
@@ -512,9 +513,11 @@ void expandpermutateR(char *str){
         strcmp(temp8, "11101011") == 0 ? printf("The Test for this step was successful") : printf("The test was not successful");
         printf("***           |\n");
         printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
-    
+        
+
         if(strcmp(temp8, "11101011") != 0) err++;
 
+        
     }
     
 
@@ -568,9 +571,9 @@ void XOR(int key){
         strcmp(temp8, "10101000") == 0 ? printf("***The Test for this step was successful") : printf("***The test was not successful");
         printf("***           |\n");
         printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
-
-        if(strcmp(temp8, "10101000") != 0) err++;
         
+        if(strcmp(temp8, "10101000") != 0) err++;
+           
     }
     
 };
@@ -823,11 +826,7 @@ void fk(int ki){
 
     //divide the result of XOR to left and right 4 bits
     divideLeftRightXor();
-    printf("\n");
-    printf("\n");
-    printf("The algorithm has ended with %i Error\n", err);
-    printf("\n");
-    printf("\n");   
+
     //get the position in S0
     if (ki == 1) s0Box(1);
     else s0Box(2);
@@ -866,10 +865,14 @@ void XOR4(int key){
     else strcmp(temp4, "1110") == 0 ? printf("The Test for this step was successful") : printf("The test was not successful");
     printf("***           |\n");
     printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
-    
-    if(key==1) if(strcmp(temp4, "1101") != 0) err++;
-    else if(strcmp(temp4, "1110") != 0) err++;
+
+    if(key==1){
+        if(strcmp(temp4, "1101") != 0) err++;
+    }else{
+     if(strcmp(temp4, "1110") != 0) err++;
+    }
    
+    
 }
 
 void switchHalf(){
@@ -910,7 +913,6 @@ void switchHalf(){
     printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
     
     if(strcmp(l, "1001") != 0 && strcmp(swR, "1101") != 0) err++;
-    
      
 }
 
