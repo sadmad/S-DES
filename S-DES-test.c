@@ -104,46 +104,50 @@ int main(){
     //get the inputKey from user
     getInput();
 
-    
+    printf("The algorithm has ended with %i Error\n", err);
     //starting to build k1
     //applying p1
     appllyP1();
-
+    printf("The algorithm has ended with %i Error\n", err);
     //LS-1
     LS1();
-
+    printf("The algorithm has ended with %i Error\n", err);
     //applying P8
     P8K1();
-
+    printf("The algorithm has ended with %i Error\n", err);
     //starting to build k2
     //Performing LS2
     LS2();
-    
+    printf("The algorithm has ended with %i Error\n", err);
     //applying P8 on K2
     P8K2();
-    
+    printf("The algorithm has ended with %i Error\n", err);
     //start to encript
     plaintextInput();
-
+    printf("The algorithm has ended with %i Error\n", err);
     //initial Permutation
     initialPermutation();
-
+    printf("The algorithm has ended with %i Error\n", err);
     divideLeftRight();
     //printf("--------------------------------------fk1---------------------------------------\n");
     fk(1);
-
+    printf("The algorithm has ended with %i Error\n", err);
     //step 7
-    XOR4();
+    XOR4(1);
     //printf("--------------------------------------fk2---------------------------------------\n");
     //step 8
     switchHalf();
 
     fk(2);
-    XOR4();
-    
+    printf("The algorithm has ended with %i Error\n", err);
+    XOR4(2);
+    printf("The algorithm has ended with %i Error\n", err);
     //printf("------------------------------------Output--------------------------------------\n");
     combine();
     initialPermutationRev();
+
+    printf("\n\nSo our encrypted result of plaintext 01110010 \nwith key 1010000010 is: 01110111\n");
+    printf("The algorithm has ended with %i Error\n", err);
 
     return 0;
     
@@ -160,9 +164,6 @@ void getInput () {
     printf("              |\n");
     printf("|                                                                 |\n");
     printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
-    
-    
-
     
 //---------------------------------------------------------------------------------------
 
@@ -194,7 +195,7 @@ void appllyP1 (){
     printf("***           |\n");
     printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
     
-    if(strcmp(temp, "0000111000") != 0) err++;
+    if(strcmp(temp, "1000001100") != 0) err++;
    
     //printf("P1: ");
     //puts(temp);
@@ -477,68 +478,100 @@ void expandpermutateR(char *str){
         temp8[i] = str[EP[i] - 1];
     };
     temp8[8] = '\0';
+    if(str==r){
 
-    printf("|                 Expand and permutate R using E/P                |\n");
-    printf("|                 The result of this step must be                 |\n");
-    printf("|                            11000011                             |\n");
-    printf("|                                                                 |\n");
-    printf("|                 The result of this approach is                  |\n");        
-    printf("|                            ");
-    for(i=0 ; i<8; ++i)
-    printf("%c", temp8[i]);
-    printf("                             |\n");
-    printf("|                                                                 |\n");
-    printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
-    printf("|          *** ");
-    strcmp(temp8, "11000011") == 0 ? printf("The Test for this step was successful") : printf("The test was not successful");
-    printf("***           |\n");
-    printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+        printf("|                 Expand and permutate R using E/P                |\n");
+        printf("|                 The result of this step must be                 |\n");
+        printf("|                            11000011                             |\n");
+        printf("|                                                                 |\n");
+        printf("|                 The result of this approach is                  |\n");        
+        printf("|                            ");
+        for(i=0 ; i<8; ++i) printf("%c", temp8[i]);
+        printf("                             |\n");
+        printf("|                                                                 |\n");
+        printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+        printf("|          *** ");
+        strcmp(temp8, "11000011") == 0 ? printf("The Test for this step was successful") : printf("The test was not successful");
+        printf("***           |\n");
+        printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
     
-    if(strcmp(temp8, "11000011") != 0) err++;
+        if(strcmp(temp8, "11000011") != 0) err++;
+
+    }else{
+
+        printf("|                  E/P with right half: E/P(1101)                 |\n");
+        printf("|                            11101011                             |\n");
+        printf("|                                                                 |\n");
+        printf("|                 The result of this approach is                  |\n");        
+        printf("|                            ");
+        for(i=0 ; i<8; ++i) printf("%c", temp8[i]);
+        printf("                             |\n");
+        printf("|                                                                 |\n");
+        printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+        printf("|          *** ");
+        strcmp(temp8, "11101011") == 0 ? printf("The Test for this step was successful") : printf("The test was not successful");
+        printf("***           |\n");
+        printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
     
+        if(strcmp(temp8, "11101011") != 0) err++;
+
+    }
     
 
 };
 
-void XOR(int ki){
+void XOR(int key){
     
-    if(ki==1){
+    if(key==1){
         
         for(i=0;i<8;++i){
-        if(k1[i] == temp8[i])
-            temp8[i] = '0';
-        else
-            temp8[i] = '1';
-         }
+            if(k1[i] == temp8[i]) temp8[i] = '0';
+            else temp8[i] = '1';
+        }
+        temp8[8] = '\0';
+
+        printf("|        XOR input from step 3 with K1: 10100100 XOR 11000011     |\n");
+        printf("|                 The result of this step must be                 |\n");
+        printf("|                            01100111                             |\n");
+        printf("|                                                                 |\n");
+        printf("|                 The result of this approach is                  |\n");        
+        printf("|                            ");
+        for(i=0 ; i<8; ++i) printf("%c", temp8[i]);
+        printf("                             |\n");
+        printf("|                                                                 |\n");
+        printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+        printf("|          *** ");
+        strcmp(temp8, "01100111") == 0 ? printf("The Test for this step was successful") : printf("The test was not successful");
+        printf("***           |\n");
+        printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+    
+        if(strcmp(temp8, "01100111") != 0) err++;
     }else{
         
-        
         for(i=0;i<8;++i){
-        if(k2[i] == temp8[i])
-            temp8[i] = '0';
-        else
-            temp8[i] = '1';
+            if(k2[i] == temp8[i]) temp8[i] = '0';
+            else temp8[i] = '1';
         }
-    }
-    temp8[8] = '\0';
+        temp8[8] = '\0';
 
-    printf("|        XOR input from step 3 with K1: 10100100 XOR 11000011     |\n");
-    printf("|                 The result of this step must be                 |\n");
-    printf("|                            01100111                             |\n");
-    printf("|                                                                 |\n");
-    printf("|                 The result of this approach is                  |\n");        
-    printf("|                            ");
-    for(i=0 ; i<8; ++i)
-    printf("%c", temp8[i]);
-    printf("                             |\n");
-    printf("|                                                                 |\n");
-    printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
-    printf("|          *** ");
-    strcmp(temp8, "01100111") == 0 ? printf("The Test for this step was successful") : printf("The test was not successful");
-    printf("***           |\n");
-    printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
-    
-    if(strcmp(temp8, "01100111") != 0) err++;
+        printf("|        XOR output of step 9 with K2: 11101011 XOR 01000011      |\n");
+        printf("|                 The result of this step must be                 |\n");
+        printf("|                            10101000                             |\n");
+        printf("|                                                                 |\n");
+        printf("|                 The result of this approach is                  |\n");        
+        printf("|                            ");
+        for(i=0 ; i<8; ++i) printf("%c", temp8[i]);
+        printf("                             |\n");
+        printf("|                                                                 |\n");
+        printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+        printf("|           ");
+        strcmp(temp8, "10101000") == 0 ? printf("***The Test for this step was successful") : printf("***The test was not successful");
+        printf("***           |\n");
+        printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+
+        if(strcmp(temp8, "10101000") != 0) err++;
+        
+    }
     
 };
 
@@ -593,12 +626,17 @@ int biToStr(char *n){
 };
 
 
-void s0Box(){
+void s0Box(int key){
 
     char num[3];
     int pos[2]; //pos[o is the row and pos[1] is the col of S0_box
-    printf("|    a. For S0: 0110 as input: b1,b4 for row, b2,b3 for column    |\n");
-    printf("|             b. Row 00, column 11 -> output is 10                |\n");
+    if (key == 1 ){
+        printf("|    a. For S0: 0110 as input: b1,b4 for row, b2,b3 for column    |\n");
+        printf("|              b. Row 00, column 11 -> output is 10               |\n");
+    }else{
+        printf("|                         Input to s-boxes:                       |\n");
+        printf("|     a. For S0, 1010, b. Row 10, column 01 -> output is 10       |\n");
+    }
     printf("|                                                                 |\n");
     printf("|                   row 1-4: ");
     //1-4
@@ -630,20 +668,25 @@ void s0Box(){
     printf("|                                                                 |\n");
     ext[0] = S0[pos[0]][pos[1]];
     printf("|                                                                 |\n");
-    printf("|                    row 0 col 3 of S0 is: %d", ext[0]);
+    if (key == 1) printf("|                    row 0 col 3 of S0 is: %d", ext[0]);
+    else printf("|                   row 2, col 1 of S0 is: %d", ext[0]);
     printf("                      |\n");
     printf("|                                                                 |\n");
    
   
 };
 
-void s1Box(){
+void s1Box(int key){
 
     char num[3];
     int pos[2]; //pos[o is the row and pos[1] is the col of S0_box
-
-    printf("|                   c. For S1: 0111 as input:                     |\n");
-    printf("|              d. Row 01, column 11 -> output is 11               |\n");
+    if (key == 1 ){
+        printf("|                   c. For S1: 0111 as input:                     |\n");
+        printf("|              d. Row 01, column 11 -> output is 11               |\n");
+    }else{
+        printf("|                   c. For S1: 1000 as input:                     |\n");
+        printf("|              d. Row 10, column 00 -> output is 11               |\n");
+    }
     printf("|                                                                 |\n");
     //1-4
     num[0] = rXor[0];
@@ -677,7 +720,8 @@ void s1Box(){
     printf("|                                                                 |\n");
     ext[1] = S1[pos[0]][pos[1]];
     printf("|                                                                 |\n");
-    printf("|                    row 1 col 3 of S1 is: %d", ext[1]);
+    if (key==1) printf("|                    row 1 col 3 of S1 is: %d", ext[1]);
+    else printf("|                    row 2 col 0 of S1 is: %d", ext[1]);
     printf("                      |\n");
     printf("|                                                                 |\n");
    
@@ -685,21 +729,19 @@ void s1Box(){
     printf("|                                                                 |\n");
     printf("|                 The result of this approach is                  |\n");  
     printf("|                          S-Box: ");       
-    for(i=0 ; i<8; ++i)
-        printf("%c", temp4[i]);
+    for(i=0 ; i<8; ++i) printf("%c", temp4[i]);
     printf("                            |\n");
     printf("|                                                                 |\n");
     printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
     printf("|          *** ");
-    strcmp(temp4, "1011") == 0 ? printf("The Test for this step was successful") : printf("The test was not successful");
+    if(key==1) strcmp(temp4, "1011") == 0 ? printf("The Test for this step was successful") : printf("The test was not successful");
+    else strcmp(temp4, "1011") == 0 ? printf("The Test for this step was successful") : printf("The test was not successful");
     printf("***           |\n");
     printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
     
-    if(strcmp(temp4, "1011") != 0) err++;
-   
+    if(key==1) if(strcmp(temp4, "1011") != 0) err++;
+    else if(strcmp(temp4, "1011") != 0) err++; //in this special input both result are
     
-
-
 };
 
 void decToBi(){
@@ -756,10 +798,7 @@ void p4(){
     printf("***           |\n");
     printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
     
-    if(strcmp(temp4, "0111") != 0) err++;
-   
-    
-    
+    if(strcmp(temp4, "0111") != 0) err++;   
 
 };
 
@@ -784,27 +823,36 @@ void fk(int ki){
 
     //divide the result of XOR to left and right 4 bits
     divideLeftRightXor();
-    
+    printf("\n");
+    printf("\n");
+    printf("The algorithm has ended with %i Error\n", err);
+    printf("\n");
+    printf("\n");   
     //get the position in S0
-    s0Box();
+    if (ki == 1) s0Box(1);
+    else s0Box(2);
 
     //get the position in S1
-    s1Box();
-
+    if (ki == 1) s1Box(1);
+    else s1Box(2);
+    
     p4();
-
+    
 };
 
-void XOR4(){
+void XOR4(int key){
 
     for(i=0;i<4;++i){
-        if(temp4[i] == l[i])
-            temp4[i] = '0';
-        else
-            temp4[i] = '1';   
+        if(temp4[i] == l[i]) temp4[i] = '0';
+        else temp4[i] = '1';   
     }
-    printf("|            XOR output from step 6 with L from step 2:           |\n");
-    printf("|                      0111 XOR 1010 = 1101                       |\n");
+    if(key==1){
+        printf("|            XOR output from step 6 with L from step 2:           |\n");
+        printf("|                      0111 XOR 1010 = 1101                       |\n");
+    }else{
+        printf("|         XOR output of step 12 with left halve from step 8       |\n");
+        printf("|                      0111 XOR 1001 = 1110                       |\n");
+    }
     printf("|                                                                 |\n");
     temp4[4] = '\0';
     printf("|                 The result of this approach is                  |\n");  
@@ -814,14 +862,14 @@ void XOR4(){
     printf("|                                                                 |\n");
     printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
     printf("|          *** ");
-    strcmp(temp4, "1101") == 0 ? printf("The Test for this step was successful") : printf("The test was not successful");
+    if(key==1) strcmp(temp4, "1101") == 0 ? printf("The Test for this step was successful") : printf("The test was not successful");
+    else strcmp(temp4, "1110") == 0 ? printf("The Test for this step was successful") : printf("The test was not successful");
     printf("***           |\n");
     printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
     
-    if(strcmp(temp4, "1101") != 0) err++;
+    if(key==1) if(strcmp(temp4, "1101") != 0) err++;
+    else if(strcmp(temp4, "1110") != 0) err++;
    
-    
-    
 }
 
 void switchHalf(){
@@ -863,7 +911,7 @@ void switchHalf(){
     
     if(strcmp(l, "1001") != 0 && strcmp(swR, "1101") != 0) err++;
     
-    scanf("%c", temp); 
+     
 }
 
 void initialPermutationRev(){
@@ -872,9 +920,24 @@ void initialPermutationRev(){
         cipherText[i] = temp8[ipRev[i]-1];
     };
     cipherText[8] = '\0';
-    printf("Ciphertext: ");
-    puts(cipherText);
-
+    printf("|            Input output from step 13 and right halve            |\n");
+    printf("|                   from step 8 into inverse IP                   |\n");
+    printf("|          a. Input us 1110 1101   b. Output is: 01110111         |\n");
+    printf("|                                                                 |\n");
+    printf("|                     The result of first half                    |\n");  
+    printf("|              Ciphertext: "); 
+    for(i=0;i<8;++i) printf("%c",cipherText[i]);
+    printf("                           |\n");
+    printf("|                                                                 |\n");
+    printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+    printf("|          *** ");
+    strcmp(cipherText, "01110111") == 0 ? printf("The Test for first half was successful") : printf("The test was not successful");
+    printf("***          |\n");
+    printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
+    
+    if(strcmp(cipherText, "01110111") != 0) err++;
+    
+    
 };
 
 void combine(){
@@ -888,6 +951,5 @@ void combine(){
         };
     }
     temp8[8]='\0';
-    printf("input: ");
-    puts(temp8);
+    
 }
